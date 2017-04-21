@@ -33,6 +33,13 @@ public class Usuari {
     }
     
     
+    public String generarPassword(){
+        String contrasenya = "";
+        
+        
+        
+        return contrasenya;
+    }
     
     /**
      * Metodo para generar la clave a partir del nombre de usuario.
