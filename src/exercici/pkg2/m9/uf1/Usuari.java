@@ -26,7 +26,7 @@ public class Usuari {
         this.cognom1 = cognom1;
         this.cognom2 = cognom2;
         
-        this.usuari = cognom1 + cognom2 + nom + dni.substring(5, 8);
+        this.usuari = nom.substring(0, 1) + cognom1 + cognom2 + dni.substring(5, 8);
     }
 
     public String getDni() {

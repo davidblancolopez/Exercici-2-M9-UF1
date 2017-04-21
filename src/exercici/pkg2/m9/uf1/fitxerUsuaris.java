@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -31,16 +32,14 @@ public class fitxerUsuaris {
     public static final byte[] IV_PARAM = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
         0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
     
-    public SecretKey addKey(String pass){
-        try {
+    public SecretKey addKey(String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException{
+       
             byte[] data = pass.getBytes("UTF-8");
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hash = md.digest(data);
             System.out.println("Clave generada correctamente.");
             clau = new SecretKeySpec(hash, "AES");
-        } catch (Exception ex) {
-            System.err.println("Error generant la clau: " + ex);
-        }
+        
         return clau;
     }
     
