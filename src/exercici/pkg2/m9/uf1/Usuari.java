@@ -32,13 +32,7 @@ public class Usuari {
     public String getUsuari(){
         return usuari;
     }
-    
-    private void xifrarPassword(){
-        String passwordXifrat = "";
         
-        
-    }
-    
     
     /**
      * Metodo para generar la clave a partir del nombre de usuario.
