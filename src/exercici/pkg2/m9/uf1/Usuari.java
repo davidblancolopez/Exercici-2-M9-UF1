@@ -17,13 +17,16 @@ public class Usuari {
     private String usuari;
     private String password;
 
+    public static String caracters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef"
+            + "ghijklmnopqrstuvwxyzñÑ=/-";
+    
     public Usuari(String dni, String nom, String cognom1, String cognom2) {
         this.dni = dni;
         this.nom = nom;
         this.cognom1 = cognom1;
         this.cognom2 = cognom2;
         
-        this.usuari = cognom1 + cognom2 + nom + dni;
+        this.usuari = cognom1 + cognom2 + nom + dni.substring(5, 8);
     }
 
     public String getDni() {
@@ -101,5 +104,19 @@ public class Usuari {
         return clau;
     }
     
+    /**
+     * Metode per a crear aleatoriament la contrasenya.
+     */
+    private void crearContrasenya(){
+        String pass = "";
+        
+        //Bucle que serveix per a recorrer l'array de caracters per a generar la contrasenya de forma
+        //aleatoria.
+        for (int i = 0; i < 20; i++) {
+            pass += (caracters.charAt((int) (Math.random() * caracters.length())));
+        }
+        
+        this.setPassword(pass);
+    }
     
 }

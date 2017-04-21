@@ -31,7 +31,7 @@ public class fitxerUsuaris {
     public static final byte[] IV_PARAM = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
         0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
     
-    private SecretKey addKey(String pass){
+    public SecretKey addKey(String pass){
         try {
             byte[] data = pass.getBytes("UTF-8");
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -115,7 +115,7 @@ public class fitxerUsuaris {
         
     }
     
-    private void adduserFile(Usuari usuari) throws FileNotFoundException, IOException{
+    public void adduserFile(Usuari usuari) throws FileNotFoundException, IOException{
         FileWriter fw = new FileWriter(fitxerUsuaris, true);
         
         fw.write(usuari.getDni());
@@ -127,7 +127,7 @@ public class fitxerUsuaris {
         fw.close();
     }
     
-    private void showFile() throws FileNotFoundException, IOException{
+    public void showFile() throws FileNotFoundException, IOException{
         ArrayList<String> arxiu = new ArrayList<>();
         
         BufferedReader br = new BufferedReader(new FileReader(fitxerUsuaris));
