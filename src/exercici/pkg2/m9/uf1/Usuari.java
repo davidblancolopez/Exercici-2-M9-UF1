@@ -25,13 +25,6 @@ public class Usuari {
         
         this.usuari = cognom1 + cognom2 + nom + dni;
     }
-
-
-    
-    
-    public String getUsuari(){
-        return usuari;
-    }
         
     
     /**
