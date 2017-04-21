@@ -89,13 +89,15 @@ public class fitxerUsuaris {
     }
     
     private void adduserFile(Usuari usuari) throws FileNotFoundException{
-        FileInputStream fis = new FileInputStream(fitxerUsuaris);
+        FileOutputStream fos = new FileOutputStream(fitxerUsuaris);        
+ 
         
-        
+        fos.write(cadena);
     }
     
     private void showFile() throws FileNotFoundException{
-        FileOutputStream fos = new FileOutputStream(fitxerUsuaris);
+        FileInputStream fis = new FileInputStream(fitxerUsuaris);
+        
     }
     
 }
