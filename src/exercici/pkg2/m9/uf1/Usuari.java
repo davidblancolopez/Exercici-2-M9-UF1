@@ -12,34 +12,33 @@ import javax.crypto.spec.SecretKeySpec;
 public class Usuari {
     private String dni;
     private String nom; 
-    private String cognom;
+    private String cognom1;
+    private String cognom2;
     private String usuari;
     private String password;
 
-    public Usuari(String nom, String cognom, String dni) {
+    public Usuari(String dni, String nom, String cognom1, String cognom2) {
         this.dni = dni;
         this.nom = nom;
-        this.cognom = cognom;
+        this.cognom1 = cognom1;
+        this.cognom2 = cognom2;
         
-        this.usuari = nom + cognom + dni;
+        this.usuari = cognom1 + cognom2 + nom + dni;
     }
+
+
+    
     
     public String getUsuari(){
         return usuari;
     }
     
     private void xifrarPassword(){
+        String passwordXifrat = "";
+        
         
     }
     
-    
-    public String generarPassword(){
-        String contrasenya = "";
-        
-        
-        
-        return contrasenya;
-    }
     
     /**
      * Metodo para generar la clave a partir del nombre de usuario.
