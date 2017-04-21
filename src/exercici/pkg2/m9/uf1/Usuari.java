@@ -25,7 +25,57 @@ public class Usuari {
         
         this.usuari = cognom1 + cognom2 + nom + dni;
     }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getCognom1() {
+        return cognom1;
+    }
+
+    public void setCognom1(String cognom1) {
+        this.cognom1 = cognom1;
+    }
+
+    public String getCognom2() {
+        return cognom2;
+    }
+
+    public void setCognom2(String cognom2) {
+        this.cognom2 = cognom2;
+    }
+
+    public String getUsuari() {
+        return usuari;
+    }
+
+    public void setUsuari(String usuari) {
+        this.usuari = usuari;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
         
+    
+    
     
     /**
      * Metodo para generar la clave a partir del nombre de usuario.

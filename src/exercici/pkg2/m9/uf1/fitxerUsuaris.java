@@ -1,30 +1,47 @@
 
 package exercici.pkg2.m9.uf1;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 
 public class fitxerUsuaris {
     
-    File fitxerUsuaris = new File("usuarios.txt");
-    String contrasenya = "DAM_M09_FERRERIA$13-14";
-    SecretKey clau;
+    private File fitxerUsuaris = new File("usuarios.txt");
+    private SecretKey clau;
     String cadena_iv = "0123456789ABCDEF"; 
-    byte [] cadena = new byte[1024];
+    public static final byte[] IV_PARAM = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
+        0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
     
-    private void addKey(){
-        
+    private SecretKey addKey(String pass){
+        try {
+            byte[] data = pass.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(data);
+            System.out.println("Clave generada correctamente.");
+            clau = new SecretKeySpec(hash, "AES");
+        } catch (Exception ex) {
+            System.err.println("Error generant la clau: " + ex);
+        }
+        return clau;
     }
     
     /**
@@ -40,20 +57,26 @@ public class fitxerUsuaris {
         FileOutputStream fos = new FileOutputStream(new File("mensajeCifrado.txt"));
         
         //Creamos un cifrador para cifrar el texto.
-        Cipher cifrador = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        Cipher cifrador = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        IvParameterSpec iv = new IvParameterSpec(cadena_iv.getBytes());
         cifrador.init(Cipher.ENCRYPT_MODE, clau);
         
         //Creamos un buffer que es un array de bytes donde almacenaremos el texto.
-        byte[] buffer = new byte[1000];
+        byte[] buffer = new byte[1024];
         
         int bytes;
         //Utilizamos un bucle para ir leyendo el archivo de texto que le hemos pasado.
         while((bytes = fis.read(buffer, 0, buffer.length))!=-1){
-            cifrador.update(buffer, 0, bytes);
+            byte [] update = cifrador.update(buffer, 0, bytes);
+            fos.write(cifrador.doFinal());
         }
         
-        //Escribimos el archivo cifrado.
+        //Cerramos recursos.
         fos.write(cifrador.doFinal());
+        fis.close();
+        fos.close();
+        
+        
     }
     
     
@@ -64,40 +87,60 @@ public class fitxerUsuaris {
      * @param clave
      * @param fitxerDesencriptat
      */
-    public void decryptFile(String fitxerEncriptat, SecretKey clave, String fitxerDesencriptat) throws FileNotFoundException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IOException, IllegalBlockSizeException, BadPaddingException {
+    public void decryptFile(String fitxerEncriptat, SecretKey clave, String fitxerDesencriptat) throws FileNotFoundException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IOException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
         //Creamos el FileInputStream
         FileInputStream fis = new FileInputStream(fitxerEncriptat);
         //Creamos el FileOutputStream para escribir en el fichero.
         FileOutputStream fos = new FileOutputStream(new File(fitxerDesencriptat));
         
         //Creamos un descifrador para descifrar el texto del fichero Encriptado.
-        Cipher descifrador = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        descifrador.init(Cipher.DECRYPT_MODE, clave);
-        
-        //Creamos un buffer que es un array de bytes donde almacenaremos el texto.
-        byte[] buffer = new byte[1000];
+        Cipher descifrador = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        IvParameterSpec iv = new IvParameterSpec(cadena_iv.getBytes());
+        descifrador.init(Cipher.DECRYPT_MODE, clave, iv);
+
+        byte[] buffer = new byte[1024];
         int bytes;
         
         //Utilizamos un bucle para ir leyendo el archivo de texto Encriptado que le hemos pasado.
         while((bytes = fis.read(buffer, 0, buffer.length))!=-1){
-            descifrador.update(buffer, 0, bytes);
+            byte [] update = descifrador.update(buffer, 0, bytes);
+            fos.write(descifrador.doFinal());
         }
-
-        //Escribimos el archivo desencriptado.
+        
+        //Cerramos recursos.
         fos.write(descifrador.doFinal());
+        fis.close();
+        fos.close();
+        
         
     }
     
-    private void adduserFile(Usuari usuari) throws FileNotFoundException{
-        FileOutputStream fos = new FileOutputStream(fitxerUsuaris);        
- 
+    private void adduserFile(Usuari usuari) throws FileNotFoundException, IOException{
+        FileWriter fw = new FileWriter(fitxerUsuaris, true);
         
-        fos.write(cadena);
+        fw.write(usuari.getDni());
+        fw.write(usuari.getNom());
+        fw.write(usuari.getCognom1());
+        fw.write(usuari.getCognom2());
+        fw.write(usuari.getPassword());
+        
+        fw.close();
     }
     
-    private void showFile() throws FileNotFoundException{
-        FileInputStream fis = new FileInputStream(fitxerUsuaris);
+    private void showFile() throws FileNotFoundException, IOException{
+        ArrayList<String> arxiu = new ArrayList<>();
         
+        BufferedReader br = new BufferedReader(new FileReader(fitxerUsuaris));
+        
+        String usuari;
+        
+        while((usuari = br.readLine()) != null){
+            arxiu.add(usuari);
+        }
+        
+        for (int i = 0; i < arxiu.size(); i++) {
+            System.out.println(arxiu.get(i));
+        }
     }
     
 }
