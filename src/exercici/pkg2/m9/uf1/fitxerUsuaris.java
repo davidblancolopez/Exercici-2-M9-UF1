@@ -28,8 +28,10 @@ public class fitxerUsuaris {
         
     }
     
-    private void adduserFile() throws FileNotFoundException{
+    private void adduserFile(Usuari usuari) throws FileNotFoundException{
         FileInputStream fis = new FileInputStream(fitxerUsuaris);
+        
+        
     }
     
     private void showFile() throws FileNotFoundException{
