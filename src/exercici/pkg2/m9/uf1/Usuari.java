@@ -107,7 +107,7 @@ public class Usuari {
     /**
      * Metode per a crear aleatoriament la contrasenya.
      */
-    private void crearContrasenya(){
+    public void crearContrasenya(){
         String pass = "";
         
         //Bucle que serveix per a recorrer l'array de caracters per a generar la contrasenya de forma
