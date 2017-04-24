@@ -18,11 +18,7 @@ public class Test {
 
 
     public static void main(String[] args) throws IOException, UnsupportedEncodingException, NoSuchAlgorithmException, FileNotFoundException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-   
-        File fitxer = new File("usuarios.txt");
-        File fitxer2 = new File("usuariosDes.txt");
-        File fitxer3 = new File("usuariosDes2.txt");
-        
+         
         //Creem els usuaris.
         Usuari us1 = new Usuari("12345678A", "David", "Blanco", "López");
         us1.crearContrasenya();
@@ -45,9 +41,10 @@ public class Test {
         //Creem la clau per encriptar.
         SecretKey key = fu.addKey(us1.getUsuari());
         
-        
+        //Encriptacio del fitxer.
         fu.encryptFile("usuarios.txt", key);
         
+        //Desencriptació del fitxer.
         fu.decryptFile("usuariosDes", key, "usuariosDes2");
         
    

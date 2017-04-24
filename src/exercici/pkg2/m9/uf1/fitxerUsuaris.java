@@ -114,6 +114,12 @@ public class fitxerUsuaris {
         
     }
     
+    /**
+     * Metode per afegir usuaris al fitxer.
+     * @param usuari
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void adduserFile(Usuari usuari) throws FileNotFoundException, IOException{
         FileWriter fw = new FileWriter(fitxerUsuaris, true);
         
@@ -126,6 +132,11 @@ public class fitxerUsuaris {
         fw.close();
     }
     
+    /**
+     * Metode per a mostrar el fitxer.
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void showFile() throws FileNotFoundException, IOException{
         ArrayList<String> arxiu = new ArrayList<>();
         
