@@ -8,6 +8,7 @@ import java.util.Arrays;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+/*  ESTA SENSE PROBAR PERQUE A CASA NO HABIA MODIFICAT ELS ARXIUS DE JAVA I NO PODIA FER LA PROVA BÉ*/
 
 public class Usuari {
     private String dni;

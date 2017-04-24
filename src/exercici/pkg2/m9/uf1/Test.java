@@ -19,6 +19,8 @@ public class Test {
 
     public static void main(String[] args) throws IOException, UnsupportedEncodingException, NoSuchAlgorithmException, FileNotFoundException, InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
          
+        /*  ESTA SENSE PROBAR PERQUE A CASA NO HABIA MODIFICAT ELS ARXIUS DE JAVA I NO PODIA FER LA PROVA BÉ*/
+        
         //Creem els usuaris.
         Usuari us1 = new Usuari("12345678A", "David", "Blanco", "López");
         us1.crearContrasenya();

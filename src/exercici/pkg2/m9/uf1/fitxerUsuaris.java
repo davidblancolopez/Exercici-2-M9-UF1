@@ -24,6 +24,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 
+/*  ESTA SENSE PROBAR PERQUE A CASA NO HABIA MODIFICAT ELS ARXIUS DE JAVA I NO PODIA FER LA PROVA BÉ*/
+
 public class fitxerUsuaris {
     
     private File fitxerUsuaris = new File("usuarios.txt");
